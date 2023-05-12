@@ -2,7 +2,6 @@
   width: 64px;
   height: 64px;
 }
-
 .cell:hover {
   cursor: pointer;
   background-color: #ccc;
@@ -11,8 +10,14 @@
 .hit {
   background-color: red;
 }
+.hit:hover {
+  background-color: red;
+}
 
 .miss {
+  background-color: blue;
+}
+.miss:hover {
   background-color: blue;
 }
 

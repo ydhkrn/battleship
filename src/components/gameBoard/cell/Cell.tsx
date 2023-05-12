@@ -1,5 +1,5 @@
 import classNames from "classnames"
-import { FireStatus } from "../../../app/types"
+import { FireStatus, Nullable, ShipType } from "../../../app/types"
 import styles from "./Cell.module.css"
 
 function Cell(props: CellProps) {
@@ -27,4 +27,5 @@ export type CellPosition = [row: number, col: number]
 export type CellData = {
   // position: CellPosition;
   status: FireStatus;
+  ship: Nullable<ShipType>;
 }

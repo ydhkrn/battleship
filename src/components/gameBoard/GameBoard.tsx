@@ -3,13 +3,10 @@ import { ReactNode } from "react"
 import styles from "./GameBoard.module.css"
 import Cell, { CellData, CellPosition } from "./cell/Cell"
 
-function onCellFire(position: CellPosition) {
-  // prettier-ignore
-  // eslint-disable-next-line no-console
-  console.log("\n==>⏩src/components/gameBoard/GameBoard.tsx:23⏩position⏩", position, "\n");
-}
-
-function generateCells(boardData: Array<CellData[]>) {
+function generateCells(
+  boardData: BoardData,
+  onCellFire: GameBoardProps["onCellFire"],
+) {
   return boardData.reduce(
     (cellsMarkup, currentRowData, currentRow) => [
       ...cellsMarkup,
@@ -33,17 +30,18 @@ function GameBoard(props: GameBoardProps) {
         gridTemplateColumns: `repeat(${props.cols}, 64px)`,
       }}
     >
-      {generateCells(props.boardData)}
+      {generateCells(props.boardData, props.onCellFire)}
     </div>
   )
 }
 
 export default GameBoard
 
-export type BoardData = Array<CellData[]>
+export type BoardData = CellData[][]
 
 export type GameBoardProps = {
   rows: number
   cols: number
   boardData: BoardData
+  onCellFire: (position: CellPosition) => void
 }
