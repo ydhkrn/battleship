@@ -1,0 +1,21 @@
+.cell {
+  width: 64px;
+  height: 64px;
+}
+
+.cell:hover {
+  cursor: pointer;
+  background-color: #ccc;
+}
+
+.hit {
+  background-color: red;
+}
+
+.miss {
+  background-color: blue;
+}
+
+.notFired {
+  background-color: #ddd;
+}
