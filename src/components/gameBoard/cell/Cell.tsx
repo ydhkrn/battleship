@@ -1,17 +1,17 @@
 import classNames from "classnames"
 import { AttackResult, Nullable, ShipType } from "../../../app/types"
+import hitImg from "./hit.png"
+import missImg from "./miss.png"
 import styles from "./Cell.module.css"
 
 function Cell(props: CellProps) {
+  const isHit = props.status === AttackResult.hit
+  const isMiss = props.status === AttackResult.miss
   return (
-    <div
-      className={classNames(styles.cell, {
-        [styles.hit]: props.status === AttackResult.hit,
-        [styles.miss]: props.status === AttackResult.miss,
-        [styles.notFired]: props.status === AttackResult.notFired,
-      })}
-      onClick={props.onClick}
-    />
+    <div className={styles.cell} onClick={props.onClick}>
+      {isHit && <img src={hitImg} alt="hit" />}
+      {isMiss && <img src={missImg} alt="hit" />}
+    </div>
   )
 }
 
