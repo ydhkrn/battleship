@@ -1,26 +1,21 @@
-import { ReactNode, useState } from "react"
-
 import { useAppSelector, useAppDispatch } from "../../app/hooks"
-import { selectPlayerBoard, fire } from "./gameSlice"
-import styles from "./GameBoard.module.css"
-import GameBoard, { BoardData } from "../gameBoard/GameBoard"
-import { FireStatus } from "../../app/types"
-import { CellData, CellPosition } from "../gameBoard/cell/Cell"
+import { selectAttackedPlayerBoardData, fire } from "./gameSlice"
+import styles from "./Game.module.less"
+import GameBoard from "../gameBoard/GameBoard"
+import { CellPosition } from "../gameBoard/cell/Cell"
+import ScoreBoard from "../scoreBoard/ScoreBoard"
 
 function Game(props: GameProps) {
-  const playerBoard = useAppSelector(selectPlayerBoard)
-  const dispatch = useAppDispatch();
-  // prettier-ignore
-  // eslint-disable-next-line no-console
-  console.log("\n==>⏩src/components/game/Game.tsx:13⏩playerBoard⏩", playerBoard, "\n");
-
+  const attackedPlayerBoardData = useAppSelector(selectAttackedPlayerBoardData)
+  const dispatch = useAppDispatch()
 
   return (
-    <div>
+    <div className={styles.game}>
+      <ScoreBoard />
       <GameBoard
         rows={10}
         cols={10}
-        boardData={playerBoard.boardData}
+        boardData={attackedPlayerBoardData}
         onCellFire={(position: CellPosition) =>
           dispatch(fire({ firedPosition: position }))
         }

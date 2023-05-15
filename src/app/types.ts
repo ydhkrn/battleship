@@ -1,4 +1,4 @@
-import appConfig from "./config";
+import appConfig from "./config"
 
 // TODO: enumerate "carrier" | "battleship" | "cruiser" | "submarine" | "destroyer";
 export type ShipType = string
@@ -19,18 +19,18 @@ export type ShipsLayoutData = {
 export type PlayerShipsLayoutData = ShipsLayoutData[]
 
 export type PlayerData = {
-  shipTypes: PlayerShipTypesData;
-  layout: PlayerShipsLayoutData;
+  shipTypes: PlayerShipTypesData
+  layout: PlayerShipsLayoutData
 }
 
-export enum FireStatus {
+export enum AttackResult {
   notFired,
   hit,
   miss,
 }
 
-export type Modify<T, R> = Omit<T, keyof R> & R;
+export type Modify<T, R> = Omit<T, keyof R> & R
 
-export type Nullable<T> = T | null;
+export type Nullable<T> = T | null
 
 export type PlayerId = keyof typeof appConfig.playerId

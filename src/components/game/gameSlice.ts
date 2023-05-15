@@ -1,19 +1,19 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit"
+import { PayloadAction, createSlice, createSelector } from "@reduxjs/toolkit"
 import { CellPosition } from "../gameBoard/cell/Cell"
 import { BoardData } from "../gameBoard/GameBoard"
 import {
   PlayerShipsStatus,
-  getFireStatus,
-  getOtherPlayerId,
+  getAttackResult,
+  getAttackedPlayerId,
   getPlayerInitialBoardData,
 } from "./utils"
 import { playerData } from "../../app/constants"
 import appConfig from "../../app/config"
 import { RootState } from "../../app/store"
-import { FireStatus, PlayerId } from "../../app/types"
+import { AttackResult, PlayerId } from "../../app/types"
 
 export type GameState = {
-  currentPlayerId: PlayerId
+  attackingPlayer: PlayerId
 } & {
   [x in PlayerId]: {
     boardData: BoardData
@@ -22,7 +22,7 @@ export type GameState = {
 }
 
 const initialState: GameState = {
-  currentPlayerId: appConfig.playerId.player1,
+  attackingPlayer: appConfig.playerId.player1,
   player1: getPlayerInitialBoardData(
     playerData,
     appConfig.rows,
@@ -45,45 +45,68 @@ export const gameSlice = createSlice({
         firedPosition: CellPosition
       }>,
     ) => {
-      // prettier-ignore
-      // eslint-disable-next-line no-console
-      console.log("\n==>⏩src/components/game/gameSlice.ts:48⏩cell fired⏩", action.payload, "\n");
       const { firedPosition } = action.payload
-      const firedBy = state.currentPlayerId
-      const firedAt = getOtherPlayerId(firedBy)
+      const attackingPlayer = state.attackingPlayer
+      const attackedPlayer = getAttackedPlayerId(attackingPlayer)
       const [firedRow, firedCol] = firedPosition
-      let firedAtPlayerState = state[firedAt]
-      let firedAtPlayerCellState =
-        firedAtPlayerState.boardData[firedRow][firedCol]
-      const ship = firedAtPlayerCellState.ship
-      // Update fire status of the cell fired at
-      const fireStatus = getFireStatus(firedAtPlayerCellState)
-      // prettier-ignore
-      // eslint-disable-next-line no-console
-      console.log("\n==>⏩src/components/game/gameSlice.ts:61⏩fireStatus⏩", firedAtPlayerCellState.status, fireStatus, "\n");
-      firedAtPlayerCellState.status = fireStatus
-      // If a ship was hit, reduce that ship's life
-      if (ship && fireStatus === FireStatus.hit) {
-        firedAtPlayerState.shipsStatus[ship].lives -= 1
+      let attackedPlayerState = state[attackedPlayer]
+      let attackedPlayerCellState =
+        attackedPlayerState.boardData[firedRow][firedCol]
+      const shipType = attackedPlayerCellState.ship
+      const isAlreadyHit = attackedPlayerCellState.status === AttackResult.hit
+      // If player clicked an already attacked position, keep the player turn
+      // and all other states intact until player clicks a new position
+      if (!isAlreadyHit) {
+        // Update fire status of the cell fired at
+        const attackResult = getAttackResult(attackedPlayerCellState)
+        attackedPlayerCellState.status = attackResult
+        // If a ship was hit, reduce that ship's life
+        if (shipType && attackResult === AttackResult.hit) {
+          const shipBeingAttacked = attackedPlayerState.shipsStatus.find(
+            (shipStatus) => shipStatus.shipType === shipType,
+          )
+          if (shipBeingAttacked && shipBeingAttacked.lives > 0) {
+            shipBeingAttacked.lives -= 1
+          }
+        }
+        // Change player turn
+        state.attackingPlayer = attackedPlayer
       }
-      // Change player turn
-      state.currentPlayerId = firedAt
     },
   },
 })
 
-export const selectPlayer1 = (state: RootState) => state.game.player1
+export const selectGame = (state: RootState) => state.game
 
-export const selectPlayer2 = (state: RootState) => state.game.player2
+export const selectAttackingPlayerId = (state: RootState) =>
+  state.game.attackingPlayer
 
-export const selectPlayerBoard = (state: RootState) => {
-  // prettier-ignore
-  // eslint-disable-next-line no-console
-  console.log("\n==>⏩src/components/game/gameSlice.ts:83⏩selectPlayerBoard⏩", state, "\n");
-  const { currentPlayerId } = state.game
-  const otherPlayerId = getOtherPlayerId(currentPlayerId)
-  return state.game[otherPlayerId]
-}
+export const selectAttackedPlayerId = createSelector(
+  selectAttackingPlayerId,
+  (playerId) => getAttackedPlayerId(playerId),
+)
+
+export const selectAttackingPlayerBoard = createSelector(
+  selectAttackingPlayerId,
+  selectGame,
+  (playerId, game) => game[playerId],
+)
+
+export const selectAttackedPlayerBoard = createSelector(
+  selectAttackedPlayerId,
+  selectGame,
+  (playerId, game) => game[playerId],
+)
+
+export const selectAttackedPlayerBoardData = createSelector(
+  selectAttackedPlayerBoard,
+  (playerBoard) => playerBoard.boardData,
+)
+
+export const selectAttackedPlayerShipsStatus = createSelector(
+  selectAttackedPlayerBoard,
+  (playerBoard) => playerBoard.shipsStatus,
+)
 
 export const { fire } = gameSlice.actions
 

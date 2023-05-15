@@ -1,7 +1,11 @@
 import appConfig from "../../app/config"
 import { PlayerId, PlayerShipTypesData, ShipData } from "../../app/types"
 import { ShipType } from "../../app/types"
-import { FireStatus, PlayerData, PlayerShipsLayoutData } from "../../app/types"
+import {
+  AttackResult,
+  PlayerData,
+  PlayerShipsLayoutData,
+} from "../../app/types"
 import { BoardData } from "../gameBoard/GameBoard"
 import { CellData } from "../gameBoard/cell/Cell"
 
@@ -16,17 +20,17 @@ function deployPlayerShips(
   })
 }
 
-export type PlayerShipsStatus = { [x: ShipType]: ShipData & { lives: number } }
+export type PlayerShipsStatus = (ShipData & {
+  shipType: ShipType
+  lives: number
+})[]
 
 function getPlayerShipsStatus(shipTypesData: PlayerShipTypesData) {
   return Object.entries(shipTypesData).reduce(
     (shipsStatus, [shipType, shipData]) => {
-      return {
-        ...shipsStatus,
-        [shipType]: { ...shipData, lives: shipData.size },
-      }
+      return [...shipsStatus, { shipType, ...shipData, lives: shipData.size }]
     },
-    {} as PlayerShipsStatus,
+    [] as PlayerShipsStatus,
   )
 }
 
@@ -41,7 +45,7 @@ export function getPlayerInitialBoardData(
       boardData[row] = []
     }
     for (let col = 0; col < cols; col = col + 1) {
-      boardData[row][col] = { status: FireStatus.notFired, ship: null }
+      boardData[row][col] = { status: AttackResult.notFired, ship: null }
     }
   }
   // Mutating function that modifies `boardData`
@@ -52,12 +56,12 @@ export function getPlayerInitialBoardData(
   }
 }
 
-export function getFireStatus(cell: CellData) {
-  return cell.ship ? FireStatus.hit : FireStatus.miss
+export function getAttackResult(cell: CellData) {
+  return cell.ship ? AttackResult.hit : AttackResult.miss
 }
 
-export function getOtherPlayerId(currentPlayerId: PlayerId) {
+export function getAttackedPlayerId(attackingPlayerId: PlayerId) {
   const { player1, player2 } = appConfig.playerId
   return player1
-  // return currentPlayerId === player1 ? player2 : player1;
+  // return attackingPlayerId === player1 ? player2 : player1;
 }
