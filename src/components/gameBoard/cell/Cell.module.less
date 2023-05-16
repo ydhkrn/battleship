@@ -1,0 +1,18 @@
+@import "../../../app/theme";
+@import "../../../app/mixins";
+
+.cell {
+  width: @gameboard-cell-size;
+  height: @gameboard-cell-size;
+  background-color: #eee;
+
+  > img {
+    .imgContain();
+  }
+}
+
+.cell:hover {
+  cursor: pointer;
+  background-color: #ddd;
+}
+

@@ -1,11 +1,14 @@
 import { ReactNode } from "react"
 
-import styles from "./GameBoard.module.css"
+import styles from "./GameBoard.module.less"
 import Cell, { CellData, CellPosition } from "./cell/Cell"
+import classNames from "classnames"
+import { useAppSelector } from "../../app/hooks"
+import { selectAttackedPlayerId } from "../game/gameSlice"
 
 function generateCells(
   boardData: BoardData,
-  onCellFire: GameBoardProps["onCellFire"],
+  onCellAttack: GameBoardProps["onCellAttack"],
 ) {
   return boardData.reduce(
     (cellsMarkup, currentRowData, currentRow) => [
@@ -14,7 +17,7 @@ function generateCells(
         <Cell
           key={`${currentRow}-${currentCol}`}
           status={cellData.status}
-          onClick={() => onCellFire([currentRow, currentCol])}
+          onClick={() => onCellAttack([currentRow, currentCol])}
         />
       )),
     ],
@@ -23,14 +26,19 @@ function generateCells(
 }
 
 function GameBoard(props: GameBoardProps) {
+  const attackedPlayerId = useAppSelector(selectAttackedPlayerId)
   return (
     <div
-      className={styles.gameBoard}
+      className={classNames(
+        props.className,
+        styles.gameBoard,
+        styles[attackedPlayerId],
+      )}
       style={{
-        gridTemplateColumns: `repeat(${props.cols}, 64px)`,
+        gridTemplateColumns: `repeat(${props.cols}, 1fr)`,
       }}
     >
-      {generateCells(props.boardData, props.onCellFire)}
+      {generateCells(props.boardData, props.onCellAttack)}
     </div>
   )
 }
@@ -43,5 +51,6 @@ export type GameBoardProps = {
   rows: number
   cols: number
   boardData: BoardData
-  onCellFire: (position: CellPosition) => void
+  className?: string
+  onCellAttack: (position: CellPosition) => void
 }

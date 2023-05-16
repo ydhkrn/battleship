@@ -16,7 +16,7 @@ function Game(props: GameProps) {
         rows={10}
         cols={10}
         boardData={attackedPlayerBoardData}
-        onCellFire={(position: CellPosition) =>
+        onCellAttack={(position: CellPosition) =>
           dispatch(fire({ firedPosition: position }))
         }
       />

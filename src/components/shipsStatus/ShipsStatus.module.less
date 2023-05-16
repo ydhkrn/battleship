@@ -1,19 +1,28 @@
 @import "../../app/theme";
+@import "../../app/mixins";
 
-.scoreBoard {
-  background-color: #666;
+// .shipsStatus {
+//   width: ;
+// }
+
+.shipStatus {
   display: flex;
-  flex: 1;
+  flex-direction: row;
+  align-items: baseline;
 }
 
-.player1 {
-  flex: 1;
-  background-color: @color-player1;
+.shipImg {
+  .imgContain();
+  width: @ship-img-size;
 }
 
-.player2 {
-  flex: 1;
-  background-color: @color-player2;
+.shipLives {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  > img {
+    .imgContain();
+    width: 2rem;
+  }
 }
-
-

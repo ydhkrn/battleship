@@ -29,8 +29,12 @@ export enum AttackResult {
   miss,
 }
 
+export type PlayerId = keyof typeof appConfig.playerId
+
 export type Modify<T, R> = Omit<T, keyof R> & R
 
 export type Nullable<T> = T | null
 
-export type PlayerId = keyof typeof appConfig.playerId
+export type ObjectLiteral<K extends string = string, V = unknown> = {
+  [x in K]: V
+}

@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+/**
+ * Scales media to ensure they never overflow their containers
+ * https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design#responsive_images
+ */
+img,
+picture,
+video {
+  max-width: 100%;
+}
