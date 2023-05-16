@@ -2,13 +2,16 @@
 
 .scoreBoard {
   display: flex;
+  gap: @game-sections-gap;
   flex-direction: column;
-  gap: @game-sections-gap; 
+
+  @media @tablet {
+    flex-direction: row;
+  }
 }
 
 .playerInfo {
   color: @black;
-  font-size: 2rem;
   display: flex;
   flex-direction: row;
   flex: 1;
@@ -18,7 +21,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
+  padding: @game-section-padding;
   gap: 1rem;
 
   > hr {

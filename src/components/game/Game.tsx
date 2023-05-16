@@ -11,10 +11,11 @@ function Game(props: GameProps) {
 
   return (
     <div className={styles.game}>
-      <ScoreBoard />
+      <ScoreBoard className={styles.scoreBoard} />
       <GameBoard
         rows={10}
         cols={10}
+        className={styles.gameBoard}
         boardData={attackedPlayerBoardData}
         onCellAttack={(position: CellPosition) =>
           dispatch(fire({ firedPosition: position }))

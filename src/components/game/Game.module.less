@@ -2,11 +2,29 @@
 
 .game {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   min-height: 100vh;
   justify-content: center;
   align-items: start;
   gap: @game-sections-gap;
+
+  @media @desktop {
+    flex-direction: row;
+  }
+}
+
+.gameBoard {
+  order: 1;
+  @media @desktop {
+    order: 2;
+  }
+}
+
+.scoreBoard {
+  order: 2;
+  @media @desktop {
+    order: 1;
+  }
 }
 // .game {
 //   display: grid;

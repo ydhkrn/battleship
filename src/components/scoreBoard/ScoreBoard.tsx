@@ -5,9 +5,9 @@ import styles from "./ScoreBoard.module.less"
 
 const { player1, player2 } = appConfig.playerId
 
-function ScoreBoard() {
+function ScoreBoard(props: ScopeBoardProps) {
   return (
-    <div className={styles.scoreBoard}>
+    <div className={classNames(props.className, styles.scoreBoard)}>
       <div className={styles.playerInfo}>
         {[player1, player2].map((playerId, index) => {
           return (
@@ -25,6 +25,10 @@ function ScoreBoard() {
       <ShipsStatus />
     </div>
   )
+}
+
+export type ScopeBoardProps = {
+  className?: string
 }
 
 export default ScoreBoard
