@@ -1,0 +1,43 @@
+@import "./theme";
+
+.imgContain {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.gameBoardCellSize(@margin) {
+  @total-border: (2 * @gameboard-border);
+  @total-cell-gap: (@cell-count - 1) * @gameboard-cell-gap;
+  @total-padding: 2 * @margin;
+  @cell-size: calc(
+    (100vw - @total-border - @total-cell-gap - @total-padding) / @cell-count
+  );
+
+  width: @cell-size;
+  height: @cell-size;
+}
+
+.margin-h (@value) {
+  margin-left: @value;
+  margin-right: @value;
+}
+.margin-v (@value) {
+  margin-top: @value;
+  margin-bottom: @value;
+}
+.padding-h (@value) {
+  padding-left: @value;
+  padding-right: @value;
+}
+.padding-v (@value) {
+  padding-top: @value;
+  padding-bottom: @value;
+}
+
+// .tablet(@prop, @var) {
+//   @tablet: ~"-tablet";
+//   @media @tablet {
+//     @{prop}: @var@tablet;
+//   }
+// }

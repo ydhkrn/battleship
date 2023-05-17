@@ -22,7 +22,7 @@ function ScoreBoard(props: ScopeBoardProps) {
           )
         })}
       </div>
-      <ShipsStatus />
+      <ShipsStatus className={styles.shipsStatus} />
     </div>
   )
 }

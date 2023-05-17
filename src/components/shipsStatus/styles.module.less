@@ -1,19 +1,40 @@
-@import "../../app/theme";
-@import "../../app/mixins";
+@import "../../app/styles/theme";
+@import "../../app/styles/mixins";
 
-// .shipsStatus {
-//   width: ;
-// }
+.shipsStatus {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  
+  @media @tablet {
+    width: 50%;
+    height: calc(3 * 50px);
+  }
+  @media @mobile {
+    width: 50%;
+    height: calc(3 * 40px);
+    .margin-h(@app-margin-mobile);
+  }
+}
 
 .shipStatus {
   display: flex;
   flex-direction: row;
   align-items: baseline;
+  width: 100%;
 }
 
 .shipImg {
   .imgContain();
   width: @ship-img-size;
+
+  @media @tablet {
+    width: 6rem;
+  }
+  @media @mobile {
+    width: 4rem;
+  }
 }
 
 .shipLives {
@@ -25,5 +46,12 @@
   > img {
     .imgContain();
     width: 2rem;
+
+    @media @tablet {
+      width: 1.5rem;
+    }
+    @media @mobile {
+      width: 0.9rem;
+    }
   }
 }

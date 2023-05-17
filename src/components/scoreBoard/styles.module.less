@@ -1,12 +1,18 @@
-@import "../../app/theme";
+@import "../../app/styles/theme";
+@import "../../app/styles/mixins";
 
 .scoreBoard {
   display: flex;
-  gap: @game-sections-gap;
+  gap: @gap-mobile;
   flex-direction: column;
-
+  
   @media @tablet {
+    gap: @gap-tablet;
     flex-direction: row;
+  }
+  @media @desktop {
+    flex-direction: column;
+    gap: @gap-desktop;
   }
 }
 
@@ -17,19 +23,27 @@
   flex: 1;
 }
 
+.shipsStatus {
+  flex: 1;
+
+  @media @tablet {
+    flex: 2;
+  }
+}
+
 .player {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: @game-section-padding-mobile calc(2 * @game-section-padding-mobile);
-  gap: @game-section-player-info-item-gap-mobile;
+  .padding-v(@game-section-padding-mobile);
+  .padding-h(calc(2 * @game-section-padding-mobile));
+  gap: @gap-mobile;
 
   @media @tablet {
-    gap: @game-section-player-info-item-gap-tablet;
+    gap: @gap-tablet;
     padding: @game-section-padding-tablet;
   }
   @media @desktop {
-    gap: @game-section-player-info-item-gap-desktop;
     padding: @game-section-padding-desktop;
   }
 
@@ -43,7 +57,6 @@
 }
 
 .score {
-  flex: 2;
   font-size: @text-player-score;
 
   @media @tablet {

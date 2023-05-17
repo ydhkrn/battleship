@@ -1,18 +1,19 @@
-@import "../../app/theme";
+@import "../../app/styles/theme";
 
 .game {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: start;
-
+  
   @media @tablet {
-    gap: @game-sections-gap;
+    gap: @gap-tablet;
   }
   @media @desktop {
-    gap: @game-sections-gap;
+    gap:@gap-desktop;
     flex-direction: row;
+    justify-content: center;
   }
 }
 
@@ -26,8 +27,10 @@
 
 .scoreBoard {
   order: 2;
+  width: 100%;
 
   @media @desktop {
     order: 1;
+    width: auto;
   }
 }

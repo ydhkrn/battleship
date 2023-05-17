@@ -6,12 +6,13 @@ import { shipTypesImgSrcMap } from "./constants"
 import ShipLife from "./ShipLife"
 import { AttackResult } from "../../app/types"
 import { getNElements } from "./utils"
+import classNames from "classnames"
 
-function ShipsStatus() {
+function ShipsStatus(props: ShipsStatusProps) {
   const shipsStatus = useAppSelector(selectAttackedPlayerShipsStatus)
 
   return (
-    <div className={styles.shipsStatus}>
+    <div className={classNames(props.className, styles.shipsStatus)}>
       {shipsStatus.map(({ shipType, lives, size }, index) => {
         const shipImgSrc =
           shipTypesImgSrcMap[shipType as keyof typeof shipTypesImgSrcMap]
@@ -32,6 +33,10 @@ function ShipsStatus() {
       })}
     </div>
   )
+}
+
+export type ShipsStatusProps = {
+  className?: string
 }
 
 export default ShipsStatus
