@@ -18,26 +18,24 @@
   height: @cell-size;
 }
 
-.margin-h (@value) {
+.minmax-prop(@prop, @value) {
+  min-@{prop}: @value;
+  max-@{prop}: @value;
+}
+
+.margin-x (@value) {
   margin-left: @value;
   margin-right: @value;
 }
-.margin-v (@value) {
+.margin-y (@value) {
   margin-top: @value;
   margin-bottom: @value;
 }
-.padding-h (@value) {
+.padding-x (@value) {
   padding-left: @value;
   padding-right: @value;
 }
-.padding-v (@value) {
+.padding-y (@value) {
   padding-top: @value;
   padding-bottom: @value;
 }
-
-// .tablet(@prop, @var) {
-//   @tablet: ~"-tablet";
-//   @media @tablet {
-//     @{prop}: @var@tablet;
-//   }
-// }

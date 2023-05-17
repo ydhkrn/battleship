@@ -1,39 +1,64 @@
 @import "../../app/styles/theme";
 @import "../../app/styles/mixins";
 
+@ship-status-h: 2rem;
+@ship-status-max-vertical-n: 3;
+@ship-img-w-mobile: 3rem;
+@ship-img-w-tablet: calc(2 * @ship-img-w-mobile);
+@ship-img-w-desktop: calc(5 * @ship-img-w-mobile);
+@ships-status-section-max-h: calc(@ship-status-max-vertical-n * @ship-status-h);
+
 .shipsStatus {
   display: flex;
   flex-direction: column;
   align-content: flex-start;
   flex-wrap: wrap;
-  
-  @media @tablet {
-    width: 50%;
-    height: calc(3 * 50px);
+  .margin-x(@app-margin-mobile);
+  .minmax-prop(height, @ships-status-section-max-h);
+
+  > * {
+    flex: 1 1 @ship-status-h;
   }
-  @media @mobile {
-    width: 50%;
-    height: calc(3 * 40px);
-    .margin-h(@app-margin-mobile);
+
+  @media @tablet {
+    margin: 0;
+    gap: @gap-tablet;
+    .minmax-prop(height, calc(@ships-status-section-max-h + (@ship-status-max-vertical-n - 1) * @gap-tablet));
+  }
+  @media @desktop {
+    margin: 0;
+    width: auto;
+    max-height: initial;
+    gap: @gap-desktop;
+
+    > * {
+      flex: 0 1 auto;
+    }
   }
 }
 
 .shipStatus {
   display: flex;
   flex-direction: row;
-  align-items: baseline;
-  width: 100%;
+  align-items: center;
+  width: 50%;
+  .minmax-prop(height, @ship-status-h);
+
+  @media @desktop {
+    max-height: initial;
+    width: initial;
+  }
 }
 
 .shipImg {
   .imgContain();
-  width: @ship-img-size;
+  width: @ship-img-w-mobile;
 
   @media @tablet {
-    width: 6rem;
+    width: @ship-img-w-tablet;
   }
-  @media @mobile {
-    width: 4rem;
+  @media @desktop {
+    width: @ship-img-w-desktop;
   }
 }
 
