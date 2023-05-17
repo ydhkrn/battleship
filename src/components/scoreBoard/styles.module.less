@@ -21,8 +21,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: @game-section-padding;
-  gap: 1rem;
+  padding: @game-section-padding-mobile calc(2 * @game-section-padding-mobile);
+  gap: @game-section-player-info-item-gap-mobile;
+
+  @media @tablet {
+    gap: @game-section-player-info-item-gap-tablet;
+    padding: @game-section-padding-tablet;
+  }
+  @media @desktop {
+    gap: @game-section-player-info-item-gap-desktop;
+    padding: @game-section-padding-desktop;
+  }
 
   > hr {
     margin: 0;
@@ -36,6 +45,13 @@
 .score {
   flex: 2;
   font-size: @text-player-score;
+
+  @media @tablet {
+    font-size: calc(@text-player-score + @text-player-score-size-step);
+  }
+  @media @desktop {
+    font-size: calc(@text-player-score + 2 * @text-player-score-size-step);
+  }
 }
 
 .player1 {
