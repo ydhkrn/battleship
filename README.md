@@ -1,4 +1,5 @@
 # Battleship
+
 TODO
 
 ## Scripts
@@ -7,4 +8,3 @@ TODO
 - `build` - build for production
 - `preview` - locally preview production build
 - `test` - launch test runner
-

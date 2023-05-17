@@ -4,7 +4,7 @@ const appConfig = {
   playerId: {
     player1: "player1",
     player2: "player2",
-  }
-} as const;
+  },
+} as const
 
-export default appConfig;
+export default appConfig
