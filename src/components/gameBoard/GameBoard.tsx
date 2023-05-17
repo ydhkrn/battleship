@@ -36,6 +36,7 @@ function GameBoard(props: GameBoardProps) {
       )}
       style={{
         gridTemplateColumns: `repeat(${props.cols}, 1fr)`,
+        gridTemplateRows: `repeat(${props.rows}, 1fr)`,
       }}
     >
       {generateCells(props.boardData, props.onCellAttack)}

@@ -6,6 +6,11 @@
   column-gap: @gameboard-cell-gap;
   row-gap: @gameboard-cell-gap;
   border: @gameboard-border solid;
+
+  @media @mobile {
+    width: 100%;
+    border: @gameboard-border solid;
+  }
 }
 
 .player1 {

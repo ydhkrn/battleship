@@ -2,9 +2,16 @@
 @import "../../../app/mixins";
 
 .cell {
-  width: @gameboard-cell-size;
-  height: @gameboard-cell-size;
   background-color: #eee;
+  .gameBoardCellSize(0rem);
+
+  @media @tablet {
+    .gameBoardCellSize(@app-margin);
+  }
+  @media @desktop {
+    width: 4rem;
+    height: 4rem;
+  }
 
   > img {
     .imgContain();
