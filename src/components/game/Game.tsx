@@ -1,6 +1,6 @@
 import { useAppSelector, useAppDispatch } from "../../app/hooks"
 import { selectAttackedPlayerBoardData, fire } from "./gameSlice"
-import styles from "./Game.module.less"
+import styles from "./styles.module.less"
 import GameBoard from "../gameBoard/GameBoard"
 import { CellPosition } from "../gameBoard/cell/Cell"
 import ScoreBoard from "../scoreBoard/ScoreBoard"

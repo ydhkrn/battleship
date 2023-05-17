@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
 
-import styles from "./GameBoard.module.less"
+import styles from "./styles.module.less"
 import Cell, { CellData, CellPosition } from "./cell/Cell"
 import classNames from "classnames"
 import { useAppSelector } from "../../app/hooks"

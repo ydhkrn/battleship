@@ -1,7 +1,7 @@
 import classNames from "classnames"
 import appConfig from "../../app/config"
 import ShipsStatus from "../shipsStatus/ShipsStatus"
-import styles from "./ScoreBoard.module.less"
+import styles from "./styles.module.less"
 
 const { player1, player2 } = appConfig.playerId
 

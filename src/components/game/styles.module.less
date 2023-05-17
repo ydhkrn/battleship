@@ -6,9 +6,12 @@
   min-height: 100vh;
   justify-content: center;
   align-items: start;
-  gap: @game-sections-gap;
 
+  @media @tablet {
+    gap: @game-sections-gap;
+  }
   @media @desktop {
+    gap: @game-sections-gap;
     flex-direction: row;
   }
 }
@@ -28,16 +31,3 @@
     order: 1;
   }
 }
-// .game {
-//   display: grid;
-//   grid-template-columns: [scoreBoard] 30% [gameBoard] 70%;
-//   min-height: 100vh;
-//   justify-items: center;
-//   // justify-content: space-around;
-//   align-content: center;
-//   align-items: start;
-// }
-
-// .scoreBoard {
-//   flex:
-// }

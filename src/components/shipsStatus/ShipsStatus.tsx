@@ -1,7 +1,7 @@
 import { useAppSelector } from "../../app/hooks"
 import { selectAttackedPlayerShipsStatus } from "../game/gameSlice"
 
-import styles from "./ShipsStatus.module.less"
+import styles from "./styles.module.less"
 import { shipTypesImgSrcMap } from "./constants"
 import ShipLife from "./ShipLife"
 import { AttackResult } from "../../app/types"

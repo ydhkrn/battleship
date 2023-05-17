@@ -1,4 +1,4 @@
-import styles from "./App.module.less"
+import styles from "./styles.module.less"
 import Game from "./components/game/Game"
 
 function App() {
