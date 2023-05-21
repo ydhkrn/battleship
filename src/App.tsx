@@ -1,13 +1,12 @@
 import styles from "./styles.module.less"
 import Game from "./components/game/Game"
+import GameNotification from "./components/gameNotification/GameNotification"
 
 function App() {
   return (
     <div className={styles.app}>
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-      </header> */}
       <Game />
+      <GameNotification />
     </div>
   )
 }

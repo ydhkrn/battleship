@@ -69,6 +69,9 @@ export const gameSlice = createSlice({
         state.attackingPlayer = attackedPlayer
       }
     },
+    resetGame: () => {
+      return initialState
+    },
   },
 })
 
@@ -104,6 +107,11 @@ export const selectAttackedPlayerShipsStatus = createSelector(
   (playerBoard) => playerBoard.shipsStatus,
 )
 
-export const { attack } = gameSlice.actions
+export const selectIsGameOver = createSelector(
+  selectAttackedPlayerShipsStatus,
+  (shipsStatus) => shipsStatus.every((shipStatus) => shipStatus.lives === 0),
+)
+
+export const { attack, resetGame } = gameSlice.actions
 
 export default gameSlice.reducer

@@ -1,0 +1,53 @@
+@import "../../app/styles/theme";
+@import "../../app/styles/mixins";
+
+@button-text-size: 1rem;
+@button-text-size-tablet: calc(@button-text-size + 0.5rem);
+
+.gameNotification {
+  color: @black;
+  background-color: @white;
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  .padding-y(1rem);
+  .padding-x(2rem);
+  align-items: center;
+  gap: 1rem;
+  
+  @media @tablet {
+    min-width: 50%;
+    .padding-y(2rem);
+    font-size: 3rem;
+    gap: 2rem;
+  }
+  @media @desktop {
+    font-size: 2rem;
+    min-width: 30%;
+    .padding-y(3rem);
+    gap: 2rem;
+  }
+}
+
+.newGameButton {
+  font-size: @button-text-size;
+  color: lighten(@black, 20%);
+  .padding-y(0.5rem);
+  .padding-x(1rem);
+  border-radius: 0.3rem;
+  background-color: #eee;
+  
+  @media @tablet {
+    .padding-y(1rem);
+    font-size: @button-text-size-tablet;
+  }
+  @media @desktop {
+    .padding-y(1rem);
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: #ddd;
+  }
+}
