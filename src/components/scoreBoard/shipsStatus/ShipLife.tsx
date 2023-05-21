@@ -1,8 +1,8 @@
 import { FunctionComponent } from "react"
-import { AttackResult } from "../../app/types"
+import { AttackResult } from "../../../app/types"
 import missImg from "./images/miss.png"
 import hitImg from "./images/hit.png"
-import { isHit } from "../game/utils"
+import { isHit } from "../../game/utils"
 
 const ShipLife: FunctionComponent<{
   status: AttackResult

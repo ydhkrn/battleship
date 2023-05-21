@@ -4,7 +4,10 @@ import styles from "./styles.module.less"
 import Cell, { CellData, CellPosition } from "./cell/Cell"
 import classNames from "classnames"
 import { useAppSelector } from "../../app/hooks"
-import { selectAttackedPlayerId } from "../game/gameSlice"
+import {
+  selectAttackedPlayerId,
+  selectAttackingPlayerId,
+} from "../game/gameSlice"
 
 function generateCells(
   boardData: BoardData,
@@ -26,13 +29,13 @@ function generateCells(
 }
 
 function GameBoard(props: GameBoardProps) {
-  const attackedPlayerId = useAppSelector(selectAttackedPlayerId)
+  const attackingPlayerId = useAppSelector(selectAttackingPlayerId)
   return (
     <div
       className={classNames(
         props.className,
         styles.gameBoard,
-        styles[attackedPlayerId],
+        styles[attackingPlayerId],
       )}
       style={{
         gridTemplateColumns: `repeat(${props.cols}, 1fr)`,

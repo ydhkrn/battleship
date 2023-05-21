@@ -1,10 +1,10 @@
-import { useAppSelector } from "../../app/hooks"
-import { selectAttackedPlayerShipsStatus } from "../game/gameSlice"
+import { useAppSelector } from "../../../app/hooks"
+import { selectAttackedPlayerShipsStatus } from "../../game/gameSlice"
 
 import styles from "./styles.module.less"
 import { shipTypesImgSrcMap } from "./constants"
 import ShipLife from "./ShipLife"
-import { AttackResult } from "../../app/types"
+import { AttackResult } from "../../../app/types"
 import { getNElements } from "./utils"
 import classNames from "classnames"
 

@@ -66,8 +66,8 @@ export function getAttackResult(cell: CellData) {
 
 export function getAttackedPlayerId(attackingPlayerId: PlayerId) {
   const { player1, player2 } = appConfig.playerId
-  return player1
-  // return attackingPlayerId === player1 ? player2 : player1;
+  // return player2
+  return attackingPlayerId === player1 ? player2 : player1
 }
 
 export function isHit(status: AttackResult): status is AttackResult.hit {
@@ -82,4 +82,11 @@ export function isOnceAttacked(
   status: AttackResult,
 ): status is AttackResult.hit | AttackResult.miss {
   return isHit(status) || isMiss(status)
+}
+
+export function getPlayerScore(otherPlayerShipsStatus: PlayerShipsStatus) {
+  return otherPlayerShipsStatus.reduce(
+    (scoreSum, shipStatus) => scoreSum + (shipStatus.size - shipStatus.lives),
+    0,
+  )
 }

@@ -8,11 +8,12 @@ import {
   getPlayerGameData,
   isOnceAttacked,
   isHit,
+  getPlayerScore,
 } from "./utils"
 import { playerData } from "../../app/constants"
 import appConfig from "../../app/config"
 import { RootState } from "../../app/store"
-import { AttackResult, PlayerId } from "../../app/types"
+import { PlayerId } from "../../app/types"
 
 export type PlayerState = {
   boardData: BoardData
@@ -66,7 +67,8 @@ export const gameSlice = createSlice({
           }
         }
         // Change player turn
-        state.attackingPlayer = attackedPlayer
+        // Hard-coded player1 to be always the attacking player
+        state.attackingPlayer = appConfig.playerId.player1
       }
     },
     resetGame: () => {
@@ -106,6 +108,15 @@ export const selectAttackedPlayerShipsStatus = createSelector(
   selectAttackedPlayerBoard,
   (playerBoard) => playerBoard.shipsStatus,
 )
+
+export const selectPlayersScore = createSelector(selectGame, (game) => {
+  const { player1, player2 } = appConfig.playerId
+
+  return {
+    [player1]: getPlayerScore(game[player2].shipsStatus),
+    [player2]: getPlayerScore(game[player1].shipsStatus),
+  }
+})
 
 export const selectIsGameOver = createSelector(
   selectAttackedPlayerShipsStatus,
