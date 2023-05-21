@@ -5,63 +5,59 @@ import {
   PlayerShipsStatus,
   getAttackResult,
   getAttackedPlayerId,
-  getPlayerInitialBoardData,
+  getPlayerGameData,
+  isOnceAttacked,
+  isHit,
 } from "./utils"
 import { playerData } from "../../app/constants"
 import appConfig from "../../app/config"
 import { RootState } from "../../app/store"
 import { AttackResult, PlayerId } from "../../app/types"
 
+export type PlayerState = {
+  boardData: BoardData
+  shipsStatus: PlayerShipsStatus
+}
+
 export type GameState = {
   attackingPlayer: PlayerId
 } & {
-  [x in PlayerId]: {
-    boardData: BoardData
-    shipsStatus: PlayerShipsStatus
-  }
+  [x in PlayerId]: PlayerState
 }
 
 const initialState: GameState = {
   attackingPlayer: appConfig.playerId.player1,
-  player1: getPlayerInitialBoardData(
-    playerData,
-    appConfig.rows,
-    appConfig.columns,
-  ),
-  player2: getPlayerInitialBoardData(
-    playerData,
-    appConfig.rows,
-    appConfig.columns,
-  ),
+  player1: getPlayerGameData(playerData, appConfig.rows, appConfig.columns),
+  player2: getPlayerGameData(playerData, appConfig.rows, appConfig.columns),
 }
 
 export const gameSlice = createSlice({
   name: "game",
   initialState,
   reducers: {
-    fire: (
+    attack: (
       state,
       action: PayloadAction<{
-        firedPosition: CellPosition
+        attackedPosition: CellPosition
       }>,
     ) => {
-      const { firedPosition } = action.payload
+      const { attackedPosition } = action.payload
       const attackingPlayer = state.attackingPlayer
       const attackedPlayer = getAttackedPlayerId(attackingPlayer)
-      const [firedRow, firedCol] = firedPosition
+      const [firedRow, firedCol] = attackedPosition
       let attackedPlayerState = state[attackedPlayer]
       let attackedPlayerCellState =
         attackedPlayerState.boardData[firedRow][firedCol]
       const shipType = attackedPlayerCellState.ship
-      const isAlreadyHit = attackedPlayerCellState.status === AttackResult.hit
+      const isAlreadyAttacked = isOnceAttacked(attackedPlayerCellState.status)
       // If player clicked an already attacked position, keep the player turn
       // and all other states intact until player clicks a new position
-      if (!isAlreadyHit) {
+      if (!isAlreadyAttacked) {
         // Update fire status of the cell fired at
         const attackResult = getAttackResult(attackedPlayerCellState)
         attackedPlayerCellState.status = attackResult
         // If a ship was hit, reduce that ship's life
-        if (shipType && attackResult === AttackResult.hit) {
+        if (shipType && isHit(attackResult)) {
           const shipBeingAttacked = attackedPlayerState.shipsStatus.find(
             (shipStatus) => shipStatus.shipType === shipType,
           )
@@ -108,6 +104,6 @@ export const selectAttackedPlayerShipsStatus = createSelector(
   (playerBoard) => playerBoard.shipsStatus,
 )
 
-export const { fire } = gameSlice.actions
+export const { attack } = gameSlice.actions
 
 export default gameSlice.reducer

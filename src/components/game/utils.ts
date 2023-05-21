@@ -1,31 +1,21 @@
 import appConfig from "../../app/config"
-import { PlayerId, PlayerShipTypesData, ShipData } from "../../app/types"
-import { ShipType } from "../../app/types"
 import {
-  AttackResult,
-  PlayerData,
+  PlayerId,
+  PlayerShipTypesData,
   PlayerShipsLayoutData,
+  ShipData,
 } from "../../app/types"
+import { ShipType } from "../../app/types"
+import { AttackResult, PlayerData } from "../../app/types"
 import { BoardData } from "../gameBoard/GameBoard"
 import { CellData } from "../gameBoard/cell/Cell"
-
-function deployPlayerShips(
-  boardData: BoardData,
-  playerShipsLayout: PlayerShipsLayoutData,
-) {
-  playerShipsLayout.forEach((shipLayout) => {
-    shipLayout.positions.forEach(([row, col]) => {
-      boardData[row][col].ship = shipLayout.ship
-    })
-  })
-}
 
 export type PlayerShipsStatus = (ShipData & {
   shipType: ShipType
   lives: number
 })[]
 
-function getPlayerShipsStatus(shipTypesData: PlayerShipTypesData) {
+export function getPlayerShipsStatus(shipTypesData: PlayerShipTypesData) {
   return Object.entries(shipTypesData).reduce(
     (shipsStatus, [shipType, shipData]) => {
       return [...shipsStatus, { shipType, ...shipData, lives: shipData.size }]
@@ -34,12 +24,13 @@ function getPlayerShipsStatus(shipTypesData: PlayerShipTypesData) {
   )
 }
 
-export function getPlayerInitialBoardData(
-  playerData: PlayerData,
+export function getPlayerBoardData(
+  shipsLayoutData: PlayerShipsLayoutData,
   rows: number,
   cols: number,
 ) {
   const boardData = [] as BoardData
+  // Create empty rows * cols board with `notFired` cells
   for (let row = 0; row < rows; row = row + 1) {
     if (!boardData[row]) {
       boardData[row] = []
@@ -48,10 +39,23 @@ export function getPlayerInitialBoardData(
       boardData[row][col] = { status: AttackResult.notFired, ship: null }
     }
   }
-  // Mutating function that modifies `boardData`
-  deployPlayerShips(boardData, playerData.layout)
+  // Deploy player ships onto board
+  shipsLayoutData.forEach((shipLayout) => {
+    shipLayout.positions.forEach(([row, col]) => {
+      // Mutates boardData
+      boardData[row][col].ship = shipLayout.ship
+    })
+  })
+  return boardData
+}
+
+export function getPlayerGameData(
+  playerData: PlayerData,
+  rows: number,
+  cols: number,
+) {
   return {
-    boardData,
+    boardData: getPlayerBoardData(playerData.layout, rows, cols),
     shipsStatus: getPlayerShipsStatus(playerData.shipTypes),
   }
 }
@@ -64,4 +68,18 @@ export function getAttackedPlayerId(attackingPlayerId: PlayerId) {
   const { player1, player2 } = appConfig.playerId
   return player1
   // return attackingPlayerId === player1 ? player2 : player1;
+}
+
+export function isHit(status: AttackResult): status is AttackResult.hit {
+  return status === AttackResult.hit
+}
+
+export function isMiss(status: AttackResult): status is AttackResult.hit {
+  return status === AttackResult.miss
+}
+
+export function isOnceAttacked(
+  status: AttackResult,
+): status is AttackResult.hit | AttackResult.miss {
+  return isHit(status) || isMiss(status)
 }

@@ -1,5 +1,5 @@
 import { useAppSelector, useAppDispatch } from "../../app/hooks"
-import { selectAttackedPlayerBoardData, fire } from "./gameSlice"
+import { selectAttackedPlayerBoardData, attack } from "./gameSlice"
 import styles from "./styles.module.less"
 import GameBoard from "../gameBoard/GameBoard"
 import { CellPosition } from "../gameBoard/cell/Cell"
@@ -18,7 +18,7 @@ function Game(props: GameProps) {
         className={styles.gameBoard}
         boardData={attackedPlayerBoardData}
         onCellAttack={(position: CellPosition) =>
-          dispatch(fire({ firedPosition: position }))
+          dispatch(attack({ attackedPosition: position }))
         }
       />
     </div>

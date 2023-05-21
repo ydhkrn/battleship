@@ -1,15 +1,14 @@
 import { AttackResult, Nullable, ShipType } from "../../../app/types"
+import { isHit, isMiss } from "../../game/utils"
 import hitImg from "./images/hit.png"
 import missImg from "./images/miss.png"
 import styles from "./styles.module.less"
 
 function Cell(props: CellProps) {
-  const isHit = props.status === AttackResult.hit
-  const isMiss = props.status === AttackResult.miss
   return (
     <div className={styles.cell} onClick={props.onClick}>
-      {isHit && <img src={hitImg} alt="hit" />}
-      {isMiss && <img src={missImg} alt="hit" />}
+      {isHit(props.status) && <img src={hitImg} alt="hit" />}
+      {isMiss(props.status) && <img src={missImg} alt="hit" />}
     </div>
   )
 }
