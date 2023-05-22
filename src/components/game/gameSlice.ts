@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice, createSelector } from "@reduxjs/toolkit"
+import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { CellPosition } from "../gameBoard/cell/Cell"
 import { BoardData } from "../gameBoard/GameBoard"
 import {
@@ -8,11 +8,9 @@ import {
   getPlayerGameData,
   isOnceAttacked,
   isHit,
-  getPlayerScore,
 } from "./utils"
 import { playerData } from "../../app/constants"
 import appConfig from "../../app/config"
-import { RootState } from "../../app/store"
 import { PlayerId } from "../../app/types"
 
 export type PlayerState = {
@@ -76,52 +74,6 @@ export const gameSlice = createSlice({
     },
   },
 })
-
-export const selectGame = (state: RootState) => state.game
-
-export const selectAttackingPlayerId = (state: RootState) =>
-  state.game.attackingPlayer
-
-export const selectAttackedPlayerId = createSelector(
-  selectAttackingPlayerId,
-  (playerId) => getAttackedPlayerId(playerId),
-)
-
-export const selectAttackingPlayerBoard = createSelector(
-  selectAttackingPlayerId,
-  selectGame,
-  (playerId, game) => game[playerId],
-)
-
-export const selectAttackedPlayerBoard = createSelector(
-  selectAttackedPlayerId,
-  selectGame,
-  (playerId, game) => game[playerId],
-)
-
-export const selectAttackedPlayerBoardData = createSelector(
-  selectAttackedPlayerBoard,
-  (playerBoard) => playerBoard.boardData,
-)
-
-export const selectAttackedPlayerShipsStatus = createSelector(
-  selectAttackedPlayerBoard,
-  (playerBoard) => playerBoard.shipsStatus,
-)
-
-export const selectPlayersScore = createSelector(selectGame, (game) => {
-  const { player1, player2 } = appConfig.playerId
-
-  return {
-    [player1]: getPlayerScore(game[player2].shipsStatus),
-    [player2]: getPlayerScore(game[player1].shipsStatus),
-  }
-})
-
-export const selectIsGameOver = createSelector(
-  selectAttackedPlayerShipsStatus,
-  (shipsStatus) => shipsStatus.every((shipStatus) => shipStatus.lives === 0),
-)
 
 export const { attack, resetGame } = gameSlice.actions
 

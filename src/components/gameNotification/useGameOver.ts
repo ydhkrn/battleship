@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
-import { resetGame, selectIsGameOver } from "../game/gameSlice"
+import { resetGame } from "../game/gameSlice"
+import { selectIsGameOver } from "../game/gameSelectors"
 
 function useGameOver() {
   const [showGameOverNotification, setGameOverNotification] = useState(false)

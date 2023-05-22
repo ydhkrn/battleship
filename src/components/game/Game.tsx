@@ -1,9 +1,10 @@
 import { useAppSelector, useAppDispatch } from "../../app/hooks"
-import { selectAttackedPlayerBoardData, attack } from "./gameSlice"
+import { attack } from "./gameSlice"
 import styles from "./styles.module.less"
 import GameBoard from "../gameBoard/GameBoard"
 import { CellPosition } from "../gameBoard/cell/Cell"
 import ScoreBoard from "../scoreBoard/ScoreBoard"
+import { selectAttackedPlayerBoardData } from "./gameSelectors"
 
 function Game(props: GameProps) {
   const attackedPlayerBoardData = useAppSelector(selectAttackedPlayerBoardData)

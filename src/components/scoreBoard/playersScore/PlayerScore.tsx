@@ -2,7 +2,7 @@ import classNames from "classnames"
 import appConfig from "../../../app/config"
 import styles from "./styles.module.less"
 import { useAppSelector } from "../../../app/hooks"
-import { selectPlayersScore } from "../../game/gameSlice"
+import { selectPlayersScore } from "../../game/gameSelectors"
 
 const { player1, player2 } = appConfig.playerId
 

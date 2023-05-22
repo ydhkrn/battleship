@@ -1,5 +1,5 @@
 import { useAppSelector } from "../../../app/hooks"
-import { selectAttackedPlayerShipsStatus } from "../../game/gameSlice"
+import { selectAttackedPlayerShipsStatus } from "../../game/gameSelectors"
 
 import styles from "./styles.module.less"
 import { shipTypesImgSrcMap } from "./constants"
@@ -13,7 +13,7 @@ function ShipsStatus(props: ShipsStatusProps) {
 
   return (
     <div className={classNames(props.className, styles.shipsStatus)}>
-      {shipsStatus.map(({ shipType, lives, size }, index) => {
+      {shipsStatus.map(({ shipType, lives, size }) => {
         const shipImgSrc =
           shipTypesImgSrcMap[shipType as keyof typeof shipTypesImgSrcMap]
 

@@ -4,10 +4,7 @@ import styles from "./styles.module.less"
 import Cell, { CellData, CellPosition } from "./cell/Cell"
 import classNames from "classnames"
 import { useAppSelector } from "../../app/hooks"
-import {
-  selectAttackedPlayerId,
-  selectAttackingPlayerId,
-} from "../game/gameSlice"
+import { selectAttackingPlayerId } from "../game/gameSelectors"
 
 function generateCells(
   boardData: BoardData,

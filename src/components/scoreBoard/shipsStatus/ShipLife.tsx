@@ -12,6 +12,7 @@ const ShipLife: FunctionComponent<{
     src: isAttackResultHit ? hitImg : missImg,
     alt: isAttackResultHit ? "hit" : "miss",
   }
+  // Image `alt` props is included in `imgProps`
   // eslint-disable-next-line jsx-a11y/alt-text
   return <img {...imgProps} />
 }
