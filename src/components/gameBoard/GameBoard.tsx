@@ -16,6 +16,7 @@ function generateCells(
       ...currentRowData.map((cellData, currentCol) => (
         <Cell
           key={`${currentRow}-${currentCol}`}
+          ship={cellData.ship}
           status={cellData.status}
           onClick={() => onCellAttack([currentRow, currentCol])}
         />

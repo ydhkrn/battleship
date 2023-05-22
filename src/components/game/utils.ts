@@ -70,6 +70,12 @@ export function getAttackedPlayerId(attackingPlayerId: PlayerId) {
   return attackingPlayerId === player1 ? player2 : player1
 }
 
+export function isNotFired(
+  status: AttackResult,
+): status is AttackResult.notFired {
+  return status === AttackResult.notFired
+}
+
 export function isHit(status: AttackResult): status is AttackResult.hit {
   return status === AttackResult.hit
 }

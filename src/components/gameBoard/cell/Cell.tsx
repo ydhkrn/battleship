@@ -1,22 +1,32 @@
+import { playAudio } from "../../../app/utils"
 import { AttackResult, Nullable, ShipType } from "../../../app/types"
-import { isHit, isMiss } from "../../game/utils"
-import hitImg from "./images/hit.png"
-import missImg from "./images/miss.png"
+import { isHit, isMiss, isNotFired } from "../../game/utils"
+import { images, sounds } from "./constants"
 import styles from "./styles.module.less"
 
 function Cell(props: CellProps) {
+  const isNeverFired = isNotFired(props.status)
+  const isAHit = isHit(props.status)
+  const isAMiss = isMiss(props.status)
   return (
-    <div className={styles.cell} onClick={props.onClick}>
-      {isHit(props.status) && <img src={hitImg} alt="hit" />}
-      {isMiss(props.status) && <img src={missImg} alt="hit" />}
+    <div
+      className={styles.cell}
+      onClick={() => {
+        if (isNeverFired) {
+          playAudio(props.ship ? sounds.hit : sounds.miss)
+          props.onClick()
+        }
+      }}
+    >
+      {isAHit && <img src={images.hit} alt="hit" />}
+      {isAMiss && <img src={images.miss} alt="miss" />}
     </div>
   )
 }
 
 export default Cell
 
-export type CellProps = {
-  status: AttackResult
+export type CellProps = CellData & {
   onClick: () => void
 }
 
