@@ -38,3 +38,5 @@ export type Nullable<T> = T | null
 export type ObjectLiteral<K extends string = string, V = unknown> = {
   [x in K]: V
 }
+
+export type ValueOf<T> = T[keyof T]

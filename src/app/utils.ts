@@ -1,7 +1,3 @@
-export function playAudio(audioSrc: string) {
-  new Audio(audioSrc).play()
-}
-
 /**
  * Array difference
  * @param arrA
@@ -10,4 +6,18 @@ export function playAudio(audioSrc: string) {
  */
 export function arrayDiff<T>(arrA: T[], arrB: T[]): (T | void)[] {
   return arrA.filter((elem) => !arrB.includes(elem))
+}
+
+export function getURLQueryParams() {
+  const queryString = window.location.search
+  const urlParams = new URLSearchParams(queryString)
+  return urlParams
+}
+
+export function isAudioEnabled() {
+  const audioQueryString = getURLQueryParams().get("audio")
+  if (audioQueryString) {
+    return /yes/.test(audioQueryString)
+  }
+  return false
 }

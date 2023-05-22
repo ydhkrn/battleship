@@ -1,13 +1,13 @@
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useContext, useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { resetGame } from "../game/gameSlice"
 import { selectIsGameOver } from "../game/gameSelectors"
-import { playAudio } from "../../app/utils"
-import gameOverSound from "./sounds/game-over.wav"
 import appConfig from "../../app/config"
+import AudioContext from "../../app/audioContext"
 
 function useGameOver() {
   const [showGameOverNotification, setGameOverNotification] = useState(false)
+  const audioContext = useContext(AudioContext)
   const dispatch = useAppDispatch()
   const isGameOver = useAppSelector(selectIsGameOver)
 
@@ -24,13 +24,13 @@ function useGameOver() {
     let timeoutId: ReturnType<typeof setTimeout>
     if (isGameOver) {
       timeoutId = setTimeout(() => {
-        playAudio(gameOverSound)
+        audioContext.playAudio?.(appConfig.audioName.gameOver)
       }, appConfig.inGameNotificationTimeout)
     }
     return () => {
       clearTimeout(timeoutId)
     }
-  }, [isGameOver])
+  }, [isGameOver, audioContext])
 
   // Memoize: in case a consumer component/hook add this method to some dependency
   // watch list, we should not return a new function reference every time.

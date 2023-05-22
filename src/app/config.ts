@@ -5,7 +5,12 @@ const appConfig = {
     player1: "player1",
     player2: "player2",
   },
-  inGameNotificationTimeout: 1000, // 1 second
+  audioName: {
+    hit: "hit",
+    miss: "miss",
+    gameOver: "gameOver",
+  },
+  inGameNotificationTimeout: 1500, // 1 second
 } as const
 
 export default appConfig
