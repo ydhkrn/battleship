@@ -10,7 +10,11 @@ const appConfig = {
     miss: "miss",
     gameOver: "gameOver",
   },
-  inGameNotificationTimeout: 1500, // 1 second
+  inGameNotificationTimeout: 1500, // 1 second,
+  ariaRoles: {
+    gridCell: "gridcell",
+    grid: "grid",
+  },
 } as const
 
 export default appConfig

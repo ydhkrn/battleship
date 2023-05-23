@@ -1,4 +1,4 @@
-import { Component, ReactNode } from "react"
+import { Component, PropsWithChildren, ReactNode } from "react"
 
 export type AnyError = any
 export type AnyErrorInfo = any
@@ -25,7 +25,6 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
   render() {
     if (this.state.hasError) {
-      // You can render any custom fallback UI
       return this.props.fallback
     }
 
@@ -33,10 +32,9 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 }
 
-export type ErrorBoundaryProps = {
-  children?: ReactNode
+export type ErrorBoundaryProps = PropsWithChildren<{
   fallback?: ReactNode
-}
+}>
 
 export type ErrorBoundaryState = {
   hasError: boolean

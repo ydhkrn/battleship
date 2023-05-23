@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+import { PropsWithChildren } from "react"
 import { createPortal } from "react-dom"
 import styles from "./styles.module.less"
 import classNames from "classnames"
@@ -24,11 +24,10 @@ function Modal(props: ModalProps) {
   )
 }
 
-export type ModalProps = {
+export type ModalProps = PropsWithChildren<{
   className?: string
   contentClassName?: string
   isVisible: boolean
-  children: ReactNode
-}
+}>
 
 export default Modal

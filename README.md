@@ -1,6 +1,6 @@
 # Battleship
 
-TODO
+The Battleship Game on your browser
 
 ## Scripts
 

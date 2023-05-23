@@ -1,4 +1,4 @@
-import { playerData } from "../../../app/constants"
+import { playerData } from "../../../app/mock"
 import { AttackResult } from "../../../app/types"
 import {
   getAttackResult,

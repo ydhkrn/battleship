@@ -9,7 +9,7 @@ import {
   isOnceAttacked,
   isHit,
 } from "./utils"
-import { playerData } from "../../app/constants"
+import { playerData } from "../../app/mock"
 import appConfig from "../../app/config"
 import { PlayerId } from "../../app/types"
 

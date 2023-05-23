@@ -5,7 +5,7 @@ import { CellPosition } from "../../gameBoard/cell/Cell"
 import { AttackResult } from "../../../app/types"
 
 describe("game reducer", () => {
-  const playerBeingAttacked = appConfig.playerId.player1
+  const playerBeingAttacked = appConfig.playerId.player2
   test("should handle initial state", async () => {
     expect(gameReducer(undefined, { type: "unknown" })).toEqual(
       initialStateMock,

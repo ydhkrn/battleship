@@ -5,6 +5,8 @@ import Cell, { CellData, CellPosition } from "./cell/Cell"
 import classNames from "classnames"
 import { useAppSelector } from "../../app/hooks"
 import { selectAttackingPlayerId } from "../game/gameSelectors"
+import translations from "../../app/translations"
+import appConfig from "../../app/config"
 
 function generateCells(
   boardData: BoardData,
@@ -39,6 +41,8 @@ function GameBoard(props: GameBoardProps) {
         gridTemplateColumns: `repeat(${props.cols}, 1fr)`,
         gridTemplateRows: `repeat(${props.rows}, 1fr)`,
       }}
+      role={appConfig.ariaRoles.grid}
+      aria-label={translations.labelGameBoard}
     >
       {generateCells(props.boardData, props.onCellAttack)}
     </div>

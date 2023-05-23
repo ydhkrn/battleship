@@ -5,6 +5,7 @@ import { images } from "./constants"
 import styles from "./styles.module.less"
 import appConfig from "../../../app/config"
 import AudioContext from "../../../app/audioContext"
+import translations from "../../../app/translations"
 
 function Cell(props: CellProps) {
   const audioContext = useContext(AudioContext)
@@ -14,6 +15,8 @@ function Cell(props: CellProps) {
 
   return (
     <div
+      role={appConfig.ariaRoles.gridCell}
+      aria-label={translations.labelGameBoardCell}
       className={styles.cell}
       onClick={() => {
         if (isNeverFired) {
@@ -24,8 +27,20 @@ function Cell(props: CellProps) {
         }
       }}
     >
-      {isAHit && <img src={images.hit} alt="hit" />}
-      {isAMiss && <img src={images.miss} alt="miss" />}
+      {isAHit && (
+        <img
+          src={images.hit}
+          alt={translations.imageHit}
+          aria-label={translations.imageHit}
+        />
+      )}
+      {isAMiss && (
+        <img
+          src={images.miss}
+          alt={translations.imageMiss}
+          aria-label={translations.imageMiss}
+        />
+      )}
     </div>
   )
 }

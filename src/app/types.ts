@@ -40,3 +40,5 @@ export type ObjectLiteral<K extends string = string, V = unknown> = {
 }
 
 export type ValueOf<T> = T[keyof T]
+
+export type AnyFunction = (...args: any[]) => any
