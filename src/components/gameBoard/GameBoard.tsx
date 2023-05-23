@@ -42,7 +42,7 @@ function GameBoard(props: GameBoardProps) {
         gridTemplateRows: `repeat(${props.rows}, 1fr)`,
       }}
       role={appConfig.ariaRoles.grid}
-      aria-label={translations.labelGameBoard}
+      aria-label={translations.textLabelGameBoard}
     >
       {generateCells(props.boardData, props.onCellAttack)}
     </div>

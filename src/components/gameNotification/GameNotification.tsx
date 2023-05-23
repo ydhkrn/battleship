@@ -3,6 +3,8 @@ import useGameOver from "./useGameOver"
 import styles from "./styles.module.less"
 import useShipSunk from "./useShipSunk"
 import { shipTypesImgSrcMap } from "../scoreBoard/shipsStatus/constants"
+import translations from "../../app/translations"
+import { replace } from "../../app/utils"
 
 function GameNotification() {
   const { showGameOverNotification, startNewGame } = useGameOver()
@@ -22,16 +24,20 @@ function GameNotification() {
             }
             alt={sunkShip}
           />
-          <div>{sunkShip.toUpperCase()} has been sunk</div>
+          <div>
+            {replace(translations.textShipSunk, {
+              shipType: sunkShip.toUpperCase(),
+            })}
+          </div>
         </div>
       )}
       {/* Game over message should wait till the last sunk ship
       notification is cleared off */}
       {!sunkShip && showGameOverNotification && (
         <>
-          <div>Game Over!</div>
+          <div>{translations.textGameOver}</div>
           <button className={styles.newGameButton} onClick={startNewGame}>
-            Start new game
+            {translations.textStartNewGame}
           </button>
         </>
       )}

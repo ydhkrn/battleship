@@ -29,13 +29,13 @@ describe("Cell", () => {
   test("should render a attack 'hit' cell", () => {
     render({ props: { status: AttackResult.hit } })
     expect(
-      screen.getByRole("img", { name: translations.imageHit }),
+      screen.getByRole("img", { name: translations.textImageHit }),
     ).toBeInTheDocument()
   })
   test("should render a attack 'miss' cell", () => {
     render({ props: { status: AttackResult.miss } })
     expect(
-      screen.getByRole("img", { name: translations.imageMiss }),
+      screen.getByRole("img", { name: translations.textImageMiss }),
     ).toBeInTheDocument()
   })
   test("should invoke onClick callback on clicking a 'notFired' cell", async () => {

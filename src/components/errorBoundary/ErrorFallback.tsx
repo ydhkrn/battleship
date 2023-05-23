@@ -1,12 +1,15 @@
+import translations from "../../app/translations"
 import styles from "./styles.module.less"
 
 function ErrorFallback() {
   return (
     <div className={styles.errorFallback}>
-      Sorry! Some error occurred!
+      {translations.textErrorMessage}
       <br />
-      Please click&nbsp;
-      <button onClick={() => window.location.reload()}>reload</button>
+      {translations.textClick}&nbsp;
+      <button onClick={() => window.location.reload()}>
+        {translations.textReload.toLowerCase()}
+      </button>
     </div>
   )
 }

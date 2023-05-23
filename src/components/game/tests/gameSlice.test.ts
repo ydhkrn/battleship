@@ -1,4 +1,4 @@
-import gameReducer, { GameState, attack } from "../gameSlice"
+import gameReducer, { GameState, attack, resetGame } from "../gameSlice"
 import appConfig from "../../../app/config"
 import { initialStateMock } from "./mock"
 import { CellPosition } from "../../gameBoard/cell/Cell"
@@ -11,25 +11,21 @@ describe("game reducer", () => {
       initialStateMock,
     )
   })
-
   describe("attack hit", () => {
     let gameStateAfterHit: GameState
     const hitPosition: CellPosition = [0, 0]
-
     beforeAll(() => {
       gameStateAfterHit = gameReducer(
         initialStateMock,
         attack({ attackedPosition: hitPosition }),
       )
     })
-
     test("should change board cell status after hit", () => {
       const [row, col] = hitPosition
       expect(
         gameStateAfterHit[playerBeingAttacked].boardData[row][col].status,
       ).toEqual(AttackResult.hit)
     })
-
     test("should reduce ship lives after hit", () => {
       const [row, col] = hitPosition
       const shipType =
@@ -47,23 +43,36 @@ describe("game reducer", () => {
       )
     })
   })
-
   describe("attack miss", () => {
     let gameStateAfterMiss: GameState
     const missPosition: CellPosition = [1, 1]
-
     beforeAll(() => {
       gameStateAfterMiss = gameReducer(
         initialStateMock,
         attack({ attackedPosition: missPosition }),
       )
     })
-
     test("should change board cell status after miss", () => {
+      let gameStateAfterMiss: GameState
+      const missPosition: CellPosition = [1, 1]
+      gameStateAfterMiss = gameReducer(
+        initialStateMock,
+        attack({ attackedPosition: missPosition }),
+      )
       const [row, col] = missPosition
       expect(
         gameStateAfterMiss[playerBeingAttacked].boardData[row][col].status,
       ).toEqual(AttackResult.miss)
     })
+  })
+  test("reset game", () => {
+    const hitPosition: CellPosition = [0, 0]
+    const gameStateAfterHit = gameReducer(
+      initialStateMock,
+      attack({ attackedPosition: hitPosition }),
+    )
+    expect(gameStateAfterHit).not.toEqual(initialStateMock)
+    const gameStateAfterReset = gameReducer(initialStateMock, resetGame())
+    expect(gameStateAfterReset).toEqual(initialStateMock)
   })
 })

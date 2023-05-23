@@ -16,7 +16,7 @@ function Cell(props: CellProps) {
   return (
     <div
       role={appConfig.ariaRoles.gridCell}
-      aria-label={translations.labelGameBoardCell}
+      aria-label={translations.textLabelGameBoardCell}
       className={styles.cell}
       onClick={() => {
         if (isNeverFired) {
@@ -30,15 +30,15 @@ function Cell(props: CellProps) {
       {isAHit && (
         <img
           src={images.hit}
-          alt={translations.imageHit}
-          aria-label={translations.imageHit}
+          alt={translations.textImageHit}
+          aria-label={translations.textImageHit}
         />
       )}
       {isAMiss && (
         <img
           src={images.miss}
-          alt={translations.imageMiss}
-          aria-label={translations.imageMiss}
+          alt={translations.textImageMiss}
+          aria-label={translations.textImageMiss}
         />
       )}
     </div>

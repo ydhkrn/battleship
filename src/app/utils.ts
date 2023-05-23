@@ -21,3 +21,16 @@ export function isAudioEnabled() {
   }
   return false
 }
+
+export function replace(
+  str: string,
+  mapObj: Record<string, any>,
+  delimiterRegex: `${string}*${string}` = "{*}",
+) {
+  let value = str
+  Object.entries(mapObj).forEach(([placeholderKey, placeholderValue]) => {
+    const placeholderRegex = delimiterRegex.replace("*", placeholderKey)
+    value = value.replace(placeholderRegex, String(placeholderValue))
+  })
+  return value
+}

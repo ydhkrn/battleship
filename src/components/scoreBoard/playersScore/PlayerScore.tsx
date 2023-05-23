@@ -3,6 +3,8 @@ import appConfig from "../../../app/config"
 import styles from "./styles.module.less"
 import { useAppSelector } from "../../../app/hooks"
 import { selectPlayersScore } from "../../game/gameSelectors"
+import { replace } from "../../../app/utils"
+import translations from "../../../app/translations"
 
 const { player1, player2 } = appConfig.playerId
 
@@ -20,7 +22,9 @@ function PlayersScore(props: PlayersScoreProps) {
           >
             <span className={styles.score}>{score}</span>
             <hr />
-            <span className={styles.playerName}>player {index + 1}</span>
+            <span className={styles.playerName}>
+              {replace(translations.textPlayerId, { playerId: index + 1 })}
+            </span>
           </div>
         )
       })}
