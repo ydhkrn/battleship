@@ -10,6 +10,10 @@ export default defineConfig({
   build: {
     outDir: "build",
     sourcemap: true,
+    // Assets smaller than this threshold will be inlined as base64 strings
+    // to avoid extra http requests.
+    // https://vitejs.dev/config/build-options.html#build-assetsinlinelimit
+    assetsInlineLimit: 16384, // 16kb
   },
   test: {
     globals: true,
