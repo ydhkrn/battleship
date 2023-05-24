@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import React from "react"
 import { useAppSelector } from "../../app/hooks"
 import { selectPlayerUnsunkShips } from "../game/gameSelectors"
 import { ShipType } from "../../app/types"
@@ -8,8 +8,8 @@ import { arrayDiff } from "../../app/utils"
 
 function useShipSunk() {
   const unsunkShips = useAppSelector(selectPlayerUnsunkShips)
-  const [prevUnsunkShips, setPrevUnsunkShips] = useState(unsunkShips)
-  const [sunkShip, setSunkShip] = useState<Nullable<ShipType>>(null)
+  const [prevUnsunkShips, setPrevUnsunkShips] = React.useState(unsunkShips)
+  const [sunkShip, setSunkShip] = React.useState<Nullable<ShipType>>(null)
 
   /**
    * @see https://react.dev/reference/react/useState#storing-information-from-previous-renders
@@ -22,7 +22,7 @@ function useShipSunk() {
     }
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout>
 
     if (sunkShip) {

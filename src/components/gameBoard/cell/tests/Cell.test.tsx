@@ -31,6 +31,7 @@ describe("Cell", () => {
       }),
     ).toBeInTheDocument()
   })
+
   test("should render a attack 'hit' cell", () => {
     render({ props: { status: AttackResult.hit } })
     expect(
@@ -39,6 +40,7 @@ describe("Cell", () => {
       }),
     ).toBeInTheDocument()
   })
+
   test("should render a attack 'miss' cell", () => {
     render({ props: { status: AttackResult.miss } })
     expect(
@@ -47,6 +49,7 @@ describe("Cell", () => {
       }),
     ).toBeInTheDocument()
   })
+
   test("should invoke onClick callback on clicking a 'notFired' cell", async () => {
     const user = userEvent.setup()
     render()
@@ -57,6 +60,7 @@ describe("Cell", () => {
     )
     expect(onClickMock).toHaveBeenCalledOnce()
   })
+
   test("should not invoke onClick callback on clicking a 'hit' cell", async () => {
     const user = userEvent.setup()
     render({ props: { status: AttackResult.hit } })
@@ -67,6 +71,7 @@ describe("Cell", () => {
     )
     expect(onClickMock).toBeCalledTimes(0)
   })
+
   test("should not invoke onClick callback on clicking a 'miss' cell", async () => {
     const user = userEvent.setup()
     render({ props: { status: AttackResult.miss } })
@@ -77,6 +82,7 @@ describe("Cell", () => {
     )
     expect(onClickMock).toBeCalledTimes(0)
   })
+
   test("should play audio 'hit' sound if cell has a ship", async () => {
     const user = userEvent.setup()
     renderApp({ props: { ship: "some ship" } })
@@ -87,6 +93,7 @@ describe("Cell", () => {
     )
     expect(playAudioMock).toBeCalledWith(appConfig.audioName.hit)
   })
+
   test("should play audio 'miss' sound if cell does not have a ship", async () => {
     const user = userEvent.setup()
     renderApp({ props: { ship: null } })

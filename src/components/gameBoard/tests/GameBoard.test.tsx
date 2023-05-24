@@ -26,6 +26,7 @@ describe("GameBoard", () => {
       }),
     ).toBeInTheDocument()
   })
+
   test("should render GameBoard cells according to give 'rows' and cols'", () => {
     render()
     expect(
@@ -34,6 +35,7 @@ describe("GameBoard", () => {
       }).length,
     ).toEqual(100)
   })
+
   test("should invoke cell onClick callback function with cell position", async () => {
     const user = userEvent.setup()
     render()

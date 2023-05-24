@@ -11,7 +11,7 @@ function Game(props: GameProps) {
   const dispatch = useAppDispatch()
 
   return (
-    <div className={styles.game}>
+    <main className={styles.game}>
       <ScoreBoard className={styles.scoreBoard} />
       <GameBoard
         rows={10}
@@ -22,7 +22,7 @@ function Game(props: GameProps) {
           dispatch(attack({ attackedPosition: position }))
         }
       />
-    </div>
+    </main>
   )
 }
 

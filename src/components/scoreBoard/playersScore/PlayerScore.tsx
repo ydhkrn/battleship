@@ -12,7 +12,10 @@ function PlayersScore(props: PlayersScoreProps) {
   const playersScore = useAppSelector(selectPlayersScore)
 
   return (
-    <div className={classNames(styles.playerInfo, props.className)}>
+    <section
+      className={classNames(styles.playerInfo, props.className)}
+      aria-label={translations.textPlayerScoreSection}
+    >
       {[player1, player2].map((playerId, index) => {
         const score = `${playersScore[playerId]}`.padStart(2, "0")
         return (
@@ -28,7 +31,7 @@ function PlayersScore(props: PlayersScoreProps) {
           </div>
         )
       })}
-    </div>
+    </section>
   )
 }
 

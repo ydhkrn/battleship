@@ -2,13 +2,17 @@ import classNames from "classnames"
 import ShipsStatus from "./shipsStatus/ShipsStatus"
 import styles from "./styles.module.less"
 import PlayersScore from "./playersScore/PlayerScore"
+import translations from "../../app/translations"
 
 function ScoreBoard(props: ScopeBoardProps) {
   return (
-    <div className={classNames(props.className, styles.scoreBoard)}>
+    <section
+      className={classNames(props.className, styles.scoreBoard)}
+      aria-label={translations.textScoreBoardSection}
+    >
       <PlayersScore className={styles.playerInfo} />
       <ShipsStatus className={styles.shipsStatus} />
-    </div>
+    </section>
   )
 }
 

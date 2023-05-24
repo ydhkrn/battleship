@@ -7,12 +7,16 @@ import ShipLife from "./ShipLife"
 import { AttackResult } from "../../../app/types"
 import { getNElements } from "./utils"
 import classNames from "classnames"
+import translations from "../../../app/translations"
 
 function ShipsStatus(props: ShipsStatusProps) {
   const shipsStatus = useAppSelector(selectAttackedPlayerShipsStatus)
 
   return (
-    <div className={classNames(props.className, styles.shipsStatus)}>
+    <section
+      aria-label={translations.textShipsStatusSection}
+      className={classNames(props.className, styles.shipsStatus)}
+    >
       {shipsStatus.map(({ shipType, lives, size }) => {
         const shipImgSrc =
           shipTypesImgSrcMap[shipType as keyof typeof shipTypesImgSrcMap]
@@ -31,7 +35,7 @@ function ShipsStatus(props: ShipsStatusProps) {
           </div>
         )
       })}
-    </div>
+    </section>
   )
 }
 
