@@ -4,6 +4,7 @@ import { vi } from "vitest"
 import { getAppRenderer } from "../../../app/testUtils"
 import { playerInitialStateMock } from "../../game/tests/mock"
 import GameBoard from "../GameBoard"
+import translations from "../../../app/translations"
 import appConfig from "../../../app/config"
 
 const onCellAttackMock = vi.fn()
@@ -19,18 +20,26 @@ const render = getAppRenderer(GameBoard, { props: basePropsMock })
 describe("GameBoard", () => {
   test("should render GameBoard component", () => {
     render()
-    expect(screen.getByRole(appConfig.ariaRoles.grid)).toBeInTheDocument()
+    expect(
+      screen.getByRole(appConfig.ariaRoles.section, {
+        name: translations.textLabelGameBoard,
+      }),
+    ).toBeInTheDocument()
   })
   test("should render GameBoard cells according to give 'rows' and cols'", () => {
     render()
-    expect(screen.getAllByRole(appConfig.ariaRoles.gridCell).length).toEqual(
-      100,
-    )
+    expect(
+      screen.getAllByRole(appConfig.ariaRoles.button, {
+        name: translations.textLabelGameBoardCell,
+      }).length,
+    ).toEqual(100)
   })
   test("should invoke cell onClick callback function with cell position", async () => {
     const user = userEvent.setup()
     render()
-    const cells = screen.getAllByRole(appConfig.ariaRoles.gridCell)
+    const cells = screen.getAllByRole(appConfig.ariaRoles.button, {
+      name: translations.textLabelGameBoardCell,
+    })
     const cellRow0Col0 = cells[0]
     const cellRow1Col0 = cells[10]
     const cellRow1Col1 = cells[11]

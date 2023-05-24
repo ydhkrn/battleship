@@ -15,8 +15,8 @@ function Cell(props: CellProps) {
 
   return (
     <div
-      role={appConfig.ariaRoles.gridCell}
       aria-label={translations.textLabelGameBoardCell}
+      role={appConfig.ariaRoles.button}
       className={styles.cell}
       onClick={() => {
         if (isNeverFired) {
@@ -26,21 +26,10 @@ function Cell(props: CellProps) {
           )
         }
       }}
+      {...props.ariaProps}
     >
-      {isAHit && (
-        <img
-          src={images.hit}
-          alt={translations.textImageHit}
-          aria-label={translations.textImageHit}
-        />
-      )}
-      {isAMiss && (
-        <img
-          src={images.miss}
-          alt={translations.textImageMiss}
-          aria-label={translations.textImageMiss}
-        />
-      )}
+      {isAHit && <img src={images.hit} alt={translations.textImageHit} />}
+      {isAMiss && <img src={images.miss} alt={translations.textImageMiss} />}
     </div>
   )
 }
@@ -54,7 +43,7 @@ export type CellProps = CellData & {
 export type CellPosition = [row: number, col: number]
 
 export type CellData = {
-  // position: CellPosition;
   status: AttackResult
   ship: Nullable<ShipType>
+  ariaProps?: { [x: `aria-${string}`]: string }
 }

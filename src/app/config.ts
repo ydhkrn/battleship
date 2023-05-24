@@ -10,10 +10,15 @@ const appConfig = {
     miss: "miss",
     gameOver: "gameOver",
   },
-  inGameNotificationTimeout: 1500, // 1 second,
+  inGameNotificationTimeout: 1500, // 1.5 second
+
+  /**
+   * @see https://www.w3.org/TR/html-aria/#docconformance
+   */
   ariaRoles: {
-    gridCell: "gridcell",
-    grid: "grid",
+    button: "button",
+    section: "region",
+    img: "img",
   },
 } as const
 

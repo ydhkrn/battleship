@@ -6,12 +6,8 @@ import classNames from "classnames"
 import { useAppSelector } from "../../app/hooks"
 import { selectAttackingPlayerId } from "../game/gameSelectors"
 import translations from "../../app/translations"
-import appConfig from "../../app/config"
 
-function generateCells(
-  boardData: BoardData,
-  onCellAttack: GameBoardProps["onCellAttack"],
-) {
+function generateCells(boardData: BoardData, onCellAttack: OnCellAttackFn) {
   return boardData.reduce(
     (cellsMarkup, currentRowData, currentRow) => [
       ...cellsMarkup,
@@ -31,7 +27,7 @@ function generateCells(
 function GameBoard(props: GameBoardProps) {
   const attackingPlayerId = useAppSelector(selectAttackingPlayerId)
   return (
-    <div
+    <section
       className={classNames(
         props.className,
         styles.gameBoard,
@@ -41,11 +37,10 @@ function GameBoard(props: GameBoardProps) {
         gridTemplateColumns: `repeat(${props.cols}, 1fr)`,
         gridTemplateRows: `repeat(${props.rows}, 1fr)`,
       }}
-      role={appConfig.ariaRoles.grid}
       aria-label={translations.textLabelGameBoard}
     >
       {generateCells(props.boardData, props.onCellAttack)}
-    </div>
+    </section>
   )
 }
 
@@ -53,10 +48,12 @@ export default GameBoard
 
 export type BoardData = CellData[][]
 
+type OnCellAttackFn = (position: CellPosition) => void
+
 export type GameBoardProps = {
   rows: number
   cols: number
   boardData: BoardData
   className?: string
-  onCellAttack: (position: CellPosition) => void
+  onCellAttack: OnCellAttackFn
 }
